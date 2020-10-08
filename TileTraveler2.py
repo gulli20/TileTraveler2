@@ -88,14 +88,25 @@ def pull_leaver(total_coins, turns):
     return total_coins, turns
 
 # The main program starts here
-victory = False
-row = 1
-col = 1
-total_coins = 0
-turns = 0
+def play():
+    victory = False
+    row = 1
+    col = 1
+    total_coins = 0
+    turns = 0
 
-while not victory:
-    valid_directions, total_coins = find_directions(col, row, total_coins, turns)
-    print_directions(valid_directions)
-    victory, col, row, turns = play_one_move(col, row, valid_directions, turns)
-print("Victory! Total coins {}.".format(total_coins))
+    while not victory:
+        valid_directions, total_coins = find_directions(col, row, total_coins, turns)
+        print_directions(valid_directions)
+        victory, col, row, turns = play_one_move(col, row, valid_directions, turns)
+    print("Victory! Total coins {}.".format(total_coins))
+
+def main():
+    play()
+
+main()
+
+again = input("Play again (y/n): ")
+while again == "y":
+    main()
+    again = input("Play again (y/n): ")
