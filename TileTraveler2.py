@@ -37,21 +37,25 @@ def print_directions(directions_str):
         first = False
     print(".")
         
-def find_directions(col, row):
+def find_directions(col, row, total_coins):
     ''' Returns valid directions as a string given the supplied location '''
     if col == 1 and row == 1:   # (1,1)
         valid_directions = NORTH
     elif col == 1 and row == 2: # (1,2) Leaver
+        total_coins = pull_leaver(total_coins)
         valid_directions = NORTH+EAST+SOUTH
     elif col == 1 and row == 3: # (1,3)
         valid_directions = EAST+SOUTH
     elif col == 2 and row == 1: # (2,1)
         valid_directions = NORTH
     elif col == 2 and row == 2: # (2,2) Leaver
+        total_coins = pull_leaver(total_coins)
         valid_directions = SOUTH+WEST
     elif col == 2 and row == 3: # (2,3) Leaver
+        total_coins = pull_leaver(total_coins)
         valid_directions = EAST+WEST
     elif col == 3 and row == 2: # (3,2) Leaver
+        total_coins = pull_leaver(total_coins)
         valid_directions = NORTH+SOUTH
     elif col == 3 and row == 3: # (3,3)
         valid_directions = SOUTH+WEST
@@ -76,14 +80,16 @@ def pull_leaver(total_coins):
     if pull_choice == 'y' or pull_choice == 'Y':
         total_coins += 1
         print('You received 1 coin, your total is now {}.'.format(total_coins))
+        return total_coins
 
 # The main program starts here
 victory = False
 row = 1
 col = 1
+total_coins = 0
 
 while not victory:
-    valid_directions = find_directions(col, row)
+    valid_directions = find_directions(col, row, total_coins)
     print_directions(valid_directions)
     victory, col, row = play_one_move(col, row, valid_directions)
 print("Victory!")
